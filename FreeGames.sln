@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreeGames.Api", "FreeGames.Api\FreeGames.Api.csproj", "{628DDA0F-E231-48D3-B503-5C517A6B48C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreeGames.Domain", "FreeGames.Domain\FreeGames.Domain.csproj", "{214CE4F3-38D7-437B-BF41-3C36AC5E347C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{628DDA0F-E231-48D3-B503-5C517A6B48C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{628DDA0F-E231-48D3-B503-5C517A6B48C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{628DDA0F-E231-48D3-B503-5C517A6B48C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{628DDA0F-E231-48D3-B503-5C517A6B48C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{214CE4F3-38D7-437B-BF41-3C36AC5E347C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{214CE4F3-38D7-437B-BF41-3C36AC5E347C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{214CE4F3-38D7-437B-BF41-3C36AC5E347C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{214CE4F3-38D7-437B-BF41-3C36AC5E347C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

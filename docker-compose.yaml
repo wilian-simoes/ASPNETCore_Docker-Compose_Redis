@@ -1,0 +1,24 @@
+﻿version: '3'
+
+services:
+  freegamesapi:
+    image: freegamesapi
+    build:
+      context: .
+    ports:
+      - "20000:80"
+    networks:
+      - freegamesapi-network
+    depends_on:
+      - "redisfreegamesapi"
+
+  redisfreegamesapi:
+    image: redis:alpine
+    ports:
+      - "16379:6379"
+    networks:
+      - freegamesapi-network
+
+networks: 
+    freegamesapi-network:
+        driver: bridge
