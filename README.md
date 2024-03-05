@@ -6,5 +6,5 @@
 ```sh
 docker-compose up -d
 docker-compose down
-wsl shutdown
+wsl --shutdown
 ```
