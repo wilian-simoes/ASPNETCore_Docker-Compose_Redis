@@ -9,9 +9,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// injeção de dependência.
-builder.Services.RegisterServices(builder.Configuration);
-
 // log
 builder.Services.AddLogging();
 
@@ -21,6 +18,9 @@ builder.Services.AddStackExchangeRedisCache(options =>
     options.Configuration = builder.Configuration.GetConnectionString("ConexaoRedis");
     options.InstanceName = "RedisCache";
 });
+
+// injeção de dependência.
+builder.Services.RegisterServices(builder.Configuration);
 
 var app = builder.Build();
 

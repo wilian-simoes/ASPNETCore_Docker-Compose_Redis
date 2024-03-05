@@ -1,4 +1,4 @@
-﻿version: '3'
+﻿version: '3.8'
 
 services:
   freegamesapi:
@@ -6,7 +6,7 @@ services:
     build:
       context: .
     ports:
-      - "20000:80"
+      - "8081:8080"
     networks:
       - freegamesapi-network
     depends_on:

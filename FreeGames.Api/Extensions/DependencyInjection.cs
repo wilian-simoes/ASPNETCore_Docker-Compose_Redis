@@ -8,6 +8,7 @@ namespace FreeGames.Api.Extensions
         public static void RegisterServices(this IServiceCollection services, IConfiguration configuration) 
         {
             services.AddHttpClient<IEpicGamesService, EpicGamesService>();
+            services.AddScoped<ICacheService, CacheService>();
         }
     }
 }

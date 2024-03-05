@@ -1,6 +1,5 @@
 ﻿using FreeGames.Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Distributed;
 
 namespace FreeGames.Api.Controllers
 {
@@ -8,11 +7,17 @@ namespace FreeGames.Api.Controllers
     [ApiController]
     public class EpicGamesController : ControllerBase
     {
-        private readonly IEpicGamesService _epicGamesService;
+        private const string CACHE_KEY = "EpicGames";
 
-        public EpicGamesController(IEpicGamesService epicGamesService)
+        private readonly ILogger<EpicGamesController> _logger;
+        private readonly IEpicGamesService _epicGamesService;
+        private readonly ICacheService _cacheService;
+
+        public EpicGamesController(ILogger<EpicGamesController> logger, IEpicGamesService epicGamesService, ICacheService cacheService)
         {
+            _logger = logger;
             _epicGamesService = epicGamesService;
+            _cacheService = cacheService;
         }
 
         /// <summary>
@@ -20,32 +25,31 @@ namespace FreeGames.Api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("GetFreeGames")]
-        public async Task<IActionResult> GetFreeGames([FromServices] IDistributedCache cache, [FromServices] ILogger<EpicGamesController> logger)
+        public async Task<IActionResult> GetFreeGames()
         {
             try
             {
-                string cacheKey = "EpicGames";
-                string jogosGratisCacheRedis = cache.GetString(cacheKey);
-                logger.LogInformation("Buscou no cache.");
+                _logger.LogInformation("Iniciou o endpoint GetFreeGames.");
 
-                if(jogosGratisCacheRedis == null)
+                string jogosGratisCacheRedis = await _cacheService.GetCache(CACHE_KEY);
+
+                if (jogosGratisCacheRedis == null)
                 {
+                    _logger.LogInformation("Iniciando consulta na Epic Games");
                     var response = await _epicGamesService.GetFreeGames();
-
-                    DistributedCacheEntryOptions opcoesCache = new();
-                    opcoesCache.SetSlidingExpiration(TimeSpan.FromDays(1));
-
                     jogosGratisCacheRedis = System.Text.Json.JsonSerializer.Serialize(response);
-                    cache.SetString(cacheKey,jogosGratisCacheRedis);
-                    logger.LogInformation("Salvou no cache.");
+
+                    await _cacheService.SetCache(CACHE_KEY, jogosGratisCacheRedis);
                 }
-                
+
+                _logger.LogInformation("Endpoint GetFreeGames finalizado com sucesso.");
                 return Ok(jogosGratisCacheRedis);
             }
             catch (Exception ex)
             {
 
-                return BadRequest(ex.Message);
+                _logger.LogError($"Erro. Exception: {ex.Message}");
+                throw new Exception("Ocorreu um erro inesperado.");
             }
         }
     }
